@@ -7,6 +7,11 @@ const cors = require("cors");
 const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
 
+// Swagger UI
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
+
 // express package
 const express = require("express");
 const app = express();
@@ -37,12 +42,10 @@ app.use(cors());
 app.use(helmet());
 
 app.get("/", (req, res) => {
-  res.send("slots api");
+  res.send("<h1>Otopark API</h1><a href='/api-docs'>Documentation</a>");
 });
 
-app.get("/", (req, res) => {
-  res.send("oropark api");
-});
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 // routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/reservation", authenticateUser, reservationRouter);

@@ -1,0 +1,266 @@
+openapi: 3.0.0
+info:
+  title: Otopark API
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://otopark-api.herokuapp.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  name: susan
+                  email: susan@gmail.com
+                  password: secret
+            example:
+              name: susan
+              email: susan@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginUserRequest'
+              - example:
+                  email: susan@gmail.com
+                  password: secret
+            example:
+              email: susan@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /reservation:
+    post:
+      tags:
+      - Reservations
+      summary: Create Reservation
+      operationId: CreateReservation
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateReservationRequest'
+              - example:
+                  space:
+                    parkingSlot: P-9
+                    isFull: true
+            example:
+              space:
+                parkingSlot: P-9
+                isFull: true
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+      - Reservations
+      summary: Get Reservation
+      operationId: GetReservation
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /reservation/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: the job id
+    patch:
+      tags:
+      - Reservations
+      summary: Update Reservation
+      operationId: UpdateReservation
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateReservationRequest'
+              - example:
+                  space:
+                    parkingSlot: P-2
+                    isFull: true
+            example:
+              space:
+                parkingSlot: P-2
+                isFull: true
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  
+    delete:
+      tags:
+      - Reservations
+      summary: Delete Reservation
+      operationId: DeleteReservation
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - Reservations
+      summary: Get Single Reservation
+      operationId: GetSingleReservation
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: susan
+        email: susan@gmail.com
+        password: secret
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: susan@gmail.com
+        password: secret
+    CreateReservationRequest:
+      title: CreateReservationRequest
+      required:
+      - space
+      type: object
+      properties:
+        space:
+          allOf:
+          - $ref: '#/components/schemas/Space'
+          - {}
+      example:
+        space:
+          parkingSlot: P-9
+          isFull: true
+    Space:
+      title: Space
+      required:
+      - parkingSlot
+      - isFull
+      type: object
+      properties:
+        parkingSlot:
+          type: string
+        isFull:
+          type: boolean
+      example:
+        parkingSlot: P-9
+        isFull: true
+    UpdateReservationRequest:
+      title: UpdateReservationRequest
+      required:
+      - space
+      type: object
+      properties:
+        space:
+          allOf:
+          - $ref: '#/components/schemas/Space'
+          - {}
+      example:
+        space:
+          parkingSlot: P-2
+          isFull: true
+    DeleteReservationRequest:
+      title: DeleteReservationRequest
+      required:
+      - asd
+      type: object
+      properties:
+        asd:
+          type: string
+      example:
+        asd: w
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+  description: ''
+- name: Reservations
+  description: ''
