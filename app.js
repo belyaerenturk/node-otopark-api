@@ -22,7 +22,6 @@ const authenticateUser = require("./middleware/authentication");
 
 // routers
 const authRouter = require("./routes/auth");
-const reservationRouter = require("./routes/reserv");
 const slotRouter = require("./routes/slots");
 
 // error handler
@@ -50,7 +49,6 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 // routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/slot", authenticateUser, slotRouter);
-app.use("/api/v1/reservation", authenticateUser, reservationRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
