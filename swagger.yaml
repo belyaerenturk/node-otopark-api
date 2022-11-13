@@ -3,7 +3,7 @@ info:
   title: Otopark-API
   version: 1.0.0
 servers:
-  - url: http://{{prod_url}}
+  - url: https://otopark-api.herokuapp.com/api/v1
   - url: http://{{url}}
 components:
   securitySchemes:
