@@ -7,7 +7,7 @@ const SlotSchema = new mongoose.Schema({
     trim: true,
   },
   isFull: {
-    type: Boolean,
+    type: String,
     default: false,
   },
 });
